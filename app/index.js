@@ -1,12 +1,10 @@
 import ReactDOM from 'react-dom';
 import React from 'react'
 import './normalize.css'
-import Header from "./components/Header/header"
-
-
+import App from './app'
 
 ReactDOM.render(
     <div className="app-container">
-        <Header />
+        <App />
     </div>,
     document.getElementById('root'));

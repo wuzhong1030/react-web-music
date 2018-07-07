@@ -1,6 +1,15 @@
 var path = require('path')
 var webpack = require('webpack')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
+var postcssConfig = {
+    loader: 'postcss-loader',
+    options: {
+        sourceMap: false,
+        config: {
+          path: 'postcss.config.js'
+        }
+      }
+}
 
 function resolve(dir) {
     return path.join(__dirname, './', dir)
@@ -46,15 +55,7 @@ module.exports = {
                         loader: 'css-loader',
                         options: { importLoaders: 1 }
                     },
-                    {
-                        loader: 'postcss-loader',
-                        options: {
-                            sourceMap: true,
-                            config: {
-                              path: 'postcss.config.js'
-                            }
-                          }
-                    }
+                    postcssConfig
                 ]
             },
             {
@@ -65,15 +66,7 @@ module.exports = {
                         loader: 'css-loader',
                         options: { importLoaders: 1 }
                     },
-                    {
-                        loader: 'postcss-loader',
-                        options: {
-                            sourceMap: false,
-                            config: {
-                              path: 'postcss.config.js'
-                            }
-                          }
-                    },
+                    postcssConfig,
                     'less-loader'
                 ]
             }
