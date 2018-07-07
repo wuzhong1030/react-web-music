@@ -1,14 +1,23 @@
 var path = require('path')
+var webpack = require('webpack')
+var HtmlWebpackPlugin = require('html-webpack-plugin')
+
 function resolve(dir) {
     return path.join(__dirname, './', dir)
 }
 module.exports = {
     context: path.resolve(__dirname, './'),
     mode: 'development',
-    entry: './app/index.js',
+    entry: [
+        'webpack-dev-server/client?http://localhost:3000',
+        'webpack/hot/only-dev-server',
+        'react-hot-loader/patch',
+        resolve('app/index.js')
+    ],
     output: {
         path: resolve('dist'),
-        filename: 'bundle.js'
+        filename: '[name]-[hash].js',
+        publicPath: '/'
     },
     module: {
         rules: [
@@ -40,5 +49,27 @@ module.exports = {
                 ]
             }
         ]
-    }
+    },
+    plugins: [
+        // new HtmlWebpackPlugin({
+        //     template: 'index.html',
+        //     inject: true,
+        //     filename: 'index.html'
+        // }),
+        // new webpack.optimize.OccurenceOrderPlugin(),
+        // new webpack.HotModuleReplacementPlugin(),
+        // new webpack.NoErrorsPlugin(),
+        new webpack.DefinePlugin({
+            'process.env.NODE_ENV': JSON.stringify('development')
+        }),
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.NamedModulesPlugin(), // HMR shows correct file names in console on update.
+        new webpack.NoEmitOnErrorsPlugin(),
+        // https://github.com/ampedandwired/html-webpack-plugin
+        new HtmlWebpackPlugin({
+            filename: 'index.html',
+            template: 'index.html',
+            inject: true
+        }),
+    ]
 }
