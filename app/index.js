@@ -1,3 +1,6 @@
-var react = require('react')
+// var react = require('react')
 
-console.log(react.version)
+import React from 'react'
+import './index.less'
+
+console.log(React.version)
