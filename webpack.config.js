@@ -9,7 +9,7 @@ module.exports = {
     context: path.resolve(__dirname, './'),
     mode: 'development',
     entry: [
-        'webpack-dev-server/client?http://localhost:4007',
+        'webpack-dev-server/client?http://localhost:4008',
         'webpack/hot/only-dev-server',
         'react-hot-loader/patch',
         resolve('app/index.js')
@@ -26,8 +26,16 @@ module.exports = {
                 loader: 'babel-loader',
                 exclude: /node_moduels/,
                 include: resolve('app'),
-                query  :{
-                    presets:['react','es2015']
+                query: {
+                    presets: ['react', 'es2015']
+                }
+            },
+            {
+                test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+                loader: 'url-loader',
+                options: {
+                    limit: 10000,
+                    name: resolve('img/[name].[hash:7].[ext]')
                 }
             },
             {
@@ -37,6 +45,15 @@ module.exports = {
                     {
                         loader: 'css-loader',
                         options: { importLoaders: 1 }
+                    },
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            sourceMap: true,
+                            config: {
+                              path: 'postcss.config.js'
+                            }
+                          }
                     }
                 ]
             },
@@ -47,6 +64,15 @@ module.exports = {
                     {
                         loader: 'css-loader',
                         options: { importLoaders: 1 }
+                    },
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            sourceMap: false,
+                            config: {
+                              path: 'postcss.config.js'
+                            }
+                          }
                     },
                     'less-loader'
                 ]

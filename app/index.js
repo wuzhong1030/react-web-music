@@ -1,6 +1,12 @@
 import ReactDOM from 'react-dom';
 import React from 'react'
-import Hello from "./components/hello"
+import './normalize.css'
+import Header from "./components/Header/header"
 
 
-ReactDOM.render( <Hello />, document.getElementById('root') );
+
+ReactDOM.render(
+    <div className="app-container">
+        <Header />
+    </div>,
+    document.getElementById('root'));
