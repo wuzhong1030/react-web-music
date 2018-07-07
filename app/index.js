@@ -1,6 +1,6 @@
-// var react = require('react')
-
+import ReactDOM from 'react-dom';
 import React from 'react'
-import './index.less'
+import Hello from "./components/hello"
 
-console.log(React.version)
+
+ReactDOM.render( <Hello />, document.getElementById('root') );

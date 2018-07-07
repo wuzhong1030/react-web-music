@@ -9,7 +9,7 @@ module.exports = {
     context: path.resolve(__dirname, './'),
     mode: 'development',
     entry: [
-        'webpack-dev-server/client?http://localhost:3000',
+        'webpack-dev-server/client?http://localhost:4007',
         'webpack/hot/only-dev-server',
         'react-hot-loader/patch',
         resolve('app/index.js')
@@ -25,7 +25,10 @@ module.exports = {
                 test: /\.js$/,
                 loader: 'babel-loader',
                 exclude: /node_moduels/,
-                include: resolve('src')
+                include: resolve('app'),
+                query  :{
+                    presets:['react','es2015']
+                }
             },
             {
                 test: /\.css$/,
@@ -51,14 +54,8 @@ module.exports = {
         ]
     },
     plugins: [
-        // new HtmlWebpackPlugin({
-        //     template: 'index.html',
-        //     inject: true,
-        //     filename: 'index.html'
-        // }),
-        // new webpack.optimize.OccurenceOrderPlugin(),
-        // new webpack.HotModuleReplacementPlugin(),
         // new webpack.NoErrorsPlugin(),
+        new webpack.NoEmitOnErrorsPlugin(),
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify('development')
         }),
