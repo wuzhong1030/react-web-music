@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import { Router, Route, hashHistory } from 'react-router';
 import Header from "./components/Header"
 import Progress from './components/Progress'
 
+import PlayerPage from './pages/Player';
 
 class App extends Component {
     constructor(props) {
@@ -9,6 +11,47 @@ class App extends Component {
         this.state = {
             progress: '-'
         }
+    }
+    componentDidMount() {
+        $("#player").jPlayer({
+            supplied: "mp3",
+            wmode: "window",
+            useStateClassSkin: true
+        });
+
+        this.playMusic(this.state.musicList[0]);
+
+        $("#player").bind($.jPlayer.event.ended, (e) => {
+            this.playWhenEnd();
+        });
+        PubSub.subscribe('PLAY_MUSIC', (msg, item) => {
+            this.playMusic(item);
+        });
+        PubSub.subscribe('DEL_MUSIC', (msg, item) => {
+            this.setState({
+                musicList: this.state.musicList.filter((music) => {
+                    return music !== item;
+                })
+            });
+        });
+        PubSub.subscribe('PLAY_NEXT', () => {
+            this.playNext();
+        });
+        PubSub.subscribe('PLAY_PREV', () => {
+            this.playNext('prev');
+        });
+        let repeatList = [
+            'cycle',
+            'once',
+            'random'
+        ];
+        PubSub.subscribe('CHANAGE_REPEAT', () => {
+            let index = repeatList.indexOf(this.state.repeatType);
+            index = (index + 1) % repeatList.length;
+            this.setState({
+                repeatType: repeatList[index]
+            });
+        });
     }
     componentDidMount() {
         $("#player").jPlayer({
@@ -24,10 +67,19 @@ class App extends Component {
         return (
             <div className="app-container">
                 <Header />
-                <Progress progress={this.state.progress} onProgressChange={this.progressChangeHandler}/>
+                <Progress progress={this.state.progress} onProgressChange={this.progressChangeHandler} />
             </div>
         )
     }
 }
 
-export default App
+export default class Root extends Component {
+    render() {
+        return (
+            <Router history={hashHistory}>
+                <Route path="/" component={App}></Route>
+            </Router>
+        );
+    }
+}
+
