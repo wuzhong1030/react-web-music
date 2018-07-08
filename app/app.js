@@ -17,11 +17,14 @@ class App extends Component {
             }
         })
     }
+    progressChangeHandler(progress) {
+        console.log('parent', progress)
+    }
     render() {
         return (
             <div className="app-container">
                 <Header />
-                <Progress progress={this.state.progress} />
+                <Progress progress={this.state.progress} onProgressChange={this.progressChangeHandler}/>
             </div>
         )
     }
