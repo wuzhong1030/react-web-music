@@ -15,7 +15,7 @@ class Progress extends Component {
     render() {
         return (
             <div ref={this.progressBarRef} className="progress-component" onClick={this.handleChangeProgress}>
-                <div className="progress"></div>
+                <div className="progress" style={{width: `${this.props.progress}%`, background: this.props.barColor}}></div>
             </div>
         )
     }

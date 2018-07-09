@@ -16,7 +16,7 @@
         }
         >.player-music {
             display: flex;
-            align-items: center;
+            justify-content: space-between;
             >.music-info {
                 >.title {
                     font-size: 25px;
@@ -27,7 +27,22 @@
                 }
                 >.author {}
             }
-            >.music-image {}
+            >.music-image {
+                width: 180px;
+                height: 180px;
+                border-radius: 50%;
+                &.play {
+                    animation: play 2s linear infinite;
+                }
+            }
         }
+    }
+}
+@keyframes play {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(360deg);
     }
 }
