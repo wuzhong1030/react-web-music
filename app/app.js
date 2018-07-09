@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Router, Route, hashHistory } from 'react-router';
+import ReactDOM from 'react-dom';
+import { BrowserRouter, Route } from 'react-router-dom'
 import Header from "./components/Header"
 import Progress from './components/Progress'
 
@@ -76,9 +77,9 @@ class App extends Component {
 export default class Root extends Component {
     render() {
         return (
-            <Router history={hashHistory}>
-                <Route path="/" component={App}></Route>
-            </Router>
+            <BrowserRouter>
+                <Route path="/" component={App} />
+            </BrowserRouter>
         );
     }
 }
