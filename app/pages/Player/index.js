@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { MUSIC_LIST } from '../../mock'
 import Progress from '../../components/Progress'
+import PubSub from 'pubsub-js'
 import './player.less'
 
 export default class Player extends Component {
@@ -27,6 +27,23 @@ export default class Player extends Component {
     componentWillUnmount() {
         $("#player").unbind($.jPlayer.event.timeupdate);
     }
+    handlePrevMusic() {
+        PubSub.publish('PLAY_PREV')
+    }
+    handlePlay() {
+        console.log(this)
+        if (this.state.isPlay) {
+            $("#player").jPlayer("pause");
+        } else {
+            $("#player").jPlayer("play");
+        }
+        this.setState({
+            isPlay: !this.state.isPlay
+        })
+    }
+    handleNextMusic() {
+        PubSub.publish('PLAY_NEXT')
+    }
     render() {
         return (
             <div className="player-page">
@@ -39,13 +56,16 @@ export default class Player extends Component {
                             <h2 className="title">{this.props.currentMusitItem.title}</h2>
                             <div className="author">{this.props.currentMusitItem.artist}</div>
                             <div className="player-info">
-                                <span className="time">-3:56</span>
+                                <div className="time-voice">
+                                    <span className="time">-3:56</span>
+                                    <div className="voice"></div>
+                                </div>
                                 <Progress></Progress>
                             </div>
                             <div className="player-btns">
-                                <span className="prev btn"></span>
-                                <span className="pause btn"></span>
-                                <span className="next btn"></span>
+                                <span className="prev btn" onClick={this.handlePrevMusic}></span>
+                                <span className={`btn ${this.state.isPlay ? 'pause' : 'play'}`} onClick={this.handlePlay.bind(this)}></span>
+                                <span className="next btn" onClick={this.handleNextMusic}></span>
                             </div>
                         </div>
                         <img className="music-image" src={this.props.currentMusitItem.cover} alt={this.props.currentMusitItem.title} />

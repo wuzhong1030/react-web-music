@@ -19,6 +19,7 @@
             justify-content: space-between;
             >.music-info {
                 flex: 1;
+                margin-top: 20px;
                 margin-right: 32px;
                 >.title {
                     font-size: 25px;
@@ -27,13 +28,20 @@
                     height: 36px;
                     line-height: 36px;
                 }
-                >.author {}
+                >.author {
+                    margin-top: 16px;
+                }
                 >.player-info {
-                    >.time {
-                        font-size: 14px;
-                        color: #999;
-                        font-weight: 400;
-                        width: 40px;
+                    margin-top: 16x;
+                    >.time-voice {
+                        margin-top: 12px;
+                        >.voice {}
+                        >.time {
+                            font-size: 14px;
+                            color: #999;
+                            font-weight: 400;
+                            width: 40px;
+                        }
                     }
                 }
                 >.player-btns {
@@ -48,7 +56,12 @@
                             background-position: 0 0;
                         }
                         &.pause {
+                            margin: 0 12px;
                             background-position: 0 -64px;
+                        }
+                        &.play {
+                            margin: 0 12px;
+                            background-position: 0 -96px;
                         }
                         &.next {
                             background-position: 0 -32px;
