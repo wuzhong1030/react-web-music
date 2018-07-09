@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import { BrowserRouter, Route } from 'react-router-dom'
+import { MUSIC_LIST } from './mock'
 import Header from "./components/Header"
-import Progress from './components/Progress'
-
 import PlayerPage from './pages/Player'
 import List from './pages/List'
 
 class App extends Component {
     constructor(props) {
         super(props);
+        console.log(MUSIC_LIST)
         this.state = {
-            progress: '-'
+            progress: '-',
+            musicItem: MUSIC_LIST[0]
         }
     }
     componentDidMount() {
@@ -67,7 +67,7 @@ class App extends Component {
     }
     render() {
         return (
-            <PlayerPage />
+            <PlayerPage currentMusitItem={this.state.musicItem}/>
         )
     }
 }

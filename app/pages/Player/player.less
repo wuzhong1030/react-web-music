@@ -1,11 +1,33 @@
 .player-page {
     display: flex;
-    height: 100%;
+    height: calc(100vh - 60px);
     justify-content: center;
     align-items: center;
-    > . player-container {
+    >.player-container {
         width: 700px;
         height: 100px;
-        background: red;
+        >.caption {
+            font-size: 16px;
+            color: #2f9842;
+            &:hover {
+                cursor: pointer;
+                text-decoration: underline;
+            }
+        }
+        >.player-music {
+            display: flex;
+            align-items: center;
+            >.music-info {
+                >.title {
+                    font-size: 25px;
+                    font-weight: 400;
+                    color: #030303;
+                    height: 36px;
+                    line-height: 36px;
+                }
+                >.author {}
+            }
+            >.music-image {}
+        }
     }
 }
