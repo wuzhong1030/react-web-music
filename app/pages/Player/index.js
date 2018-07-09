@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-class Player extends Component {
+export default class Player extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -24,6 +24,8 @@ class Player extends Component {
 		$("#player").unbind($.jPlayer.event.timeupdate);
 	}
     render() {
-
+        return (
+            <div>player</div>
+        )
     }
 }

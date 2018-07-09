@@ -78,7 +78,10 @@ export default class Root extends Component {
     render() {
         return (
             <BrowserRouter>
-                <Route path="/" component={App} />
+                <div>
+                    <Route exact path="/" component={App} />
+                    <Route path="/player" component={PlayerPage} />
+                </div>
             </BrowserRouter>
         );
     }
