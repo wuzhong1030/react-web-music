@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { MUSIC_LIST } from '../../mock'
+import PubSub from 'pubsub-js'
 import './list.less'
 
 export default class Player extends Component {
@@ -7,12 +8,12 @@ export default class Player extends Component {
         super(props)
     }
     handleSelectMusic(item) {
-        console.log(item)
+        PubSub.publish('PLAY_MUSIC', item)
     }
     render() {
         const items = MUSIC_LIST.map(item => {
             return (
-                <li  onClick={() => this.handleSelectMusic(item)} className="item" key={item.id}>{item.title} - {item.artist}</li>
+                <li onClick={() => this.handlePlayMusic(item)} className="item" key={item.id}>{item.title} - {item.artist}</li>
             )
         })
         return (

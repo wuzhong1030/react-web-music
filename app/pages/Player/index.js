@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { MUSIC_LIST } from '../../mock'
+import Progress from '../../components/Progress'
 import './player.less'
 
 export default class Player extends Component {
@@ -37,6 +38,15 @@ export default class Player extends Component {
                         <div className="music-info">
                             <h2 className="title">{this.props.currentMusitItem.title}</h2>
                             <div className="author">{this.props.currentMusitItem.artist}</div>
+                            <div className="player-info">
+                                <span className="time">-3:56</span>
+                                <Progress></Progress>
+                            </div>
+                            <div className="player-btns">
+                                <span className="prev btn"></span>
+                                <span className="pause btn"></span>
+                                <span className="next btn"></span>
+                            </div>
                         </div>
                         <img className="music-image" src={this.props.currentMusitItem.cover} alt={this.props.currentMusitItem.title} />
                     </div>

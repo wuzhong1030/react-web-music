@@ -18,6 +18,8 @@
             display: flex;
             justify-content: space-between;
             >.music-info {
+                flex: 1;
+                margin-right: 32px;
                 >.title {
                     font-size: 25px;
                     font-weight: 400;
@@ -26,6 +28,33 @@
                     line-height: 36px;
                 }
                 >.author {}
+                >.player-info {
+                    >.time {
+                        font-size: 14px;
+                        color: #999;
+                        font-weight: 400;
+                        width: 40px;
+                    }
+                }
+                >.player-btns {
+                    margin-top: 20px;
+                    >.btn {
+                        display: inline-block;
+                        width: 32px;
+                        height: 32px;
+                        background: url(./assets/icons.png) no-repeat;
+                        background-size: 32px auto;
+                        &.prev {
+                            background-position: 0 0;
+                        }
+                        &.pause {
+                            background-position: 0 -64px;
+                        }
+                        &.next {
+                            background-position: 0 -32px;
+                        }
+                    }
+                }
             }
             >.music-image {
                 width: 180px;
@@ -38,6 +67,7 @@
         }
     }
 }
+
 @keyframes play {
     from {
         transform: rotate(0);
