@@ -4,7 +4,8 @@ import { BrowserRouter, Route } from 'react-router-dom'
 import Header from "./components/Header"
 import Progress from './components/Progress'
 
-import PlayerPage from './pages/Player';
+import PlayerPage from './pages/Player'
+import List from './pages/List'
 
 class App extends Component {
     constructor(props) {
@@ -66,10 +67,7 @@ class App extends Component {
     }
     render() {
         return (
-            <div className="app-container">
-                <Header />
-                <Progress progress={this.state.progress} onProgressChange={this.progressChangeHandler} />
-            </div>
+            <PlayerPage />
         )
     }
 }
@@ -78,9 +76,10 @@ export default class Root extends Component {
     render() {
         return (
             <BrowserRouter>
-                <div>
+                <div className="app-container">
+                    <Header />
                     <Route exact path="/" component={App} />
-                    <Route path="/player" component={PlayerPage} />
+                    <Route path="/list" component={List} />
                 </div>
             </BrowserRouter>
         );

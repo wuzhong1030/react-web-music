@@ -25,7 +25,11 @@ export default class Player extends Component {
 	}
     render() {
         return (
-            <div>player</div>
+            <div className="player-page">
+                <div className="player-container">
+                    xxx
+                </div>
+            </div>
         )
     }
 }
