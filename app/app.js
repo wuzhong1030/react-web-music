@@ -11,7 +11,7 @@ class App extends Component {
         console.log(MUSIC_LIST)
         this.state = {
             progress: '-',
-            currentMusitItem: MUSIC_LIST[0],
+            currentMusicItem: MUSIC_LIST[0],
             musicList: MUSIC_LIST,
             playType: 'cycle'
         }
@@ -23,7 +23,7 @@ class App extends Component {
             useStateClassSkin: true
         });
 
-        this.playMusic(this.state.currentMusitItem);
+        this.playMusic(this.state.currentMusicItem);
 
         $("#player").bind($.jPlayer.event.ended, (e) => {
             this.playWhenEnd();
@@ -31,13 +31,13 @@ class App extends Component {
         PubSub.subscribe('PLAY_MUSIC', (msg, item) => {
             this.playMusic(item);
         });
-        PubSub.subscribe('DEL_MUSIC', (msg, item) => {
-            this.setState({
-                musicList: this.state.musicList.filter((music) => {
-                    return music !== item;
-                })
-            });
-        });
+        // PubSub.subscribe('DEL_MUSIC', (msg, item) => {
+        //     this.setState({
+        //         musicList: this.state.musicList.filter((music) => {
+        //             return music !== item;
+        //         })
+        //     });
+        // });
         PubSub.subscribe('PLAY_NEXT', () => {
             this.playNext();
         });
@@ -59,7 +59,6 @@ class App extends Component {
     }
     componentWillUnmount() {
         PubSub.unsubscribe('PLAY_MUSIC')
-        PubSub.unsubscribe('DEL_MUSIC')
         PubSub.unsubscribe('CHANAGE_PLAY_TYPE')
         PubSub.unsubscribe('PLAY_NEXT')
         PubSub.unsubscribe('PLAY_PREV')
@@ -68,7 +67,7 @@ class App extends Component {
         console.log('parent', progress)
     }
     playNext(type = 'next') {
-        let index = this.findMusicIndex(this.state.currentMusitItem)
+        let index = this.findMusicIndex(this.state.currentMusicItem)
         if (type === 'next') {
             index = (index + 1) % this.state.musicList.length
         } else {
@@ -76,7 +75,7 @@ class App extends Component {
         }
         let musicItem = this.state.musicList[index]
         this.setState({
-            currentMusitItem: musicItem
+            currentMusicItem: musicItem
         });
         this.playMusic(musicItem)
     }
@@ -89,26 +88,26 @@ class App extends Component {
             mp3: item.file
         }).jPlayer('play')
         this.setState({
-            currentMusitItem: item
+            currentMusicItem: item
         });
     }
     playWhenEnd() {
         if (this.state.playType === 'random') {
-            let index = this.findMusicIndex(this.state.currentMusitItem);
+            let index = this.findMusicIndex(this.state.currentMusicItem);
             let randomIndex = randomRange(0, this.state.musicList.length - 1);
             while (randomIndex === index) {
                 randomIndex = randomRange(0, this.state.musicList.length - 1);
             }
             this.playMusic(this.state.musicList[randomIndex]);
         } else if (this.state.playType === 'once') {
-            this.playMusic(this.state.currentMusitItem);
+            this.playMusic(this.state.currentMusicItem);
         } else {
             this.playNext();
         }
     }
     render() {
         return (
-            <PlayerPage currentMusitItem={this.state.currentMusitItem} playType={this.state.playType} />
+            <PlayerPage currentMusicItem={this.state.currentMusicItem} playType={this.state.playType} />
         )
     }
 }

@@ -7,11 +7,13 @@ export default class Player extends Component {
     constructor(props) {
         super(props)
     }
-    handleSelectMusic(item) {
+    handlePlayMusic(item) {
+        console.log(item)
         PubSub.publish('PLAY_MUSIC', item)
     }
     render() {
         const items = MUSIC_LIST.map(item => {
+            console.log(this.props)
             return (
                 <li onClick={() => this.handlePlayMusic(item)} className="item" key={item.id}>{item.title} - {item.artist}</li>
             )
