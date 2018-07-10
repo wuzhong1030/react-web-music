@@ -70,11 +70,11 @@ export default class Player extends Component {
                     </h3>
                     <div className="player-music">
                         <div className="music-info">
-                            <h2 className="title">{this.props.currentMusitItem.title}</h2>
-                            <div className="author">{this.props.currentMusitItem.artist}</div>
+                            <h2 className="title">{this.props.currentMusicItem.title}</h2>
+                            <div className="author">{this.props.currentMusicItem.artist}</div>
                             <div className="player-info">
                                 <div className="time-voice">
-                                    <span className="time">-3:56</span>
+                                    <span className="time">{this.state.leftTime}</span>
                                     <div className="voice"></div>
                                 </div>
                                 <Progress progress={this.state.progress}
@@ -91,7 +91,7 @@ export default class Player extends Component {
                                 </div>
                             </div>
                         </div>
-                        <img className="music-image" src={this.props.currentMusitItem.cover} alt={this.props.currentMusitItem.title} />
+                        <img className="music-image" src={this.props.currentMusicItem.cover} alt={this.props.currentMusicItem.title} />
                     </div>
                 </div>
             </div>
