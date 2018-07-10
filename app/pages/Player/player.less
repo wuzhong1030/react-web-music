@@ -45,13 +45,19 @@
                     }
                 }
                 >.player-btns {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
                     margin-top: 20px;
-                    >.btn {
+                    .btn {
                         display: inline-block;
                         width: 32px;
                         height: 32px;
                         background: url(./assets/icons.png) no-repeat;
                         background-size: 32px auto;
+                        &:hover {
+                            cursor: pointer;
+                        }
                         &.prev {
                             background-position: 0 0;
                         }
@@ -65,6 +71,15 @@
                         }
                         &.next {
                             background-position: 0 -32px;
+                        }
+                        &.play-once {
+                            background-position: 0 -128px;
+                        }
+                        &.play-cycle {
+                            background-position: 0 -160px;
+                        }
+                        &.play-random {
+                            background-position: 0 -192px;
                         }
                     }
                 }

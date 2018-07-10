@@ -4,6 +4,7 @@ import Progress from '../../components/Progress'
 import PubSub from 'pubsub-js'
 import './player.less'
 
+let duration = null;
 export default class Player extends Component {
     constructor(props) {
         super(props)
@@ -30,8 +31,14 @@ export default class Player extends Component {
     handlePrevMusic() {
         PubSub.publish('PLAY_PREV')
     }
+    formatTime(time) {
+		time = Math.floor(time);
+		let miniute = Math.floor(time / 60);
+		let seconds = Math.floor(time % 60);
+
+		return miniute + ':' + (seconds < 10 ? '0' + seconds : seconds);
+	}
     handlePlay() {
-        console.log(this)
         if (this.state.isPlay) {
             $("#player").jPlayer("pause");
         } else {
@@ -43,6 +50,10 @@ export default class Player extends Component {
     }
     handleNextMusic() {
         PubSub.publish('PLAY_NEXT')
+    }
+    handleChangePlayType() {
+        console.log(this)
+        PubSub.publish('CHANAGE_PLAY_TYPE');
     }
     render() {
         return (
@@ -63,9 +74,14 @@ export default class Player extends Component {
                                 <Progress></Progress>
                             </div>
                             <div className="player-btns">
-                                <span className="prev btn" onClick={this.handlePrevMusic}></span>
-                                <span className={`btn ${this.state.isPlay ? 'pause' : 'play'}`} onClick={this.handlePlay.bind(this)}></span>
-                                <span className="next btn" onClick={this.handleNextMusic}></span>
+                                <div>
+                                    <span className="prev btn" onClick={this.handlePrevMusic}></span>
+                                    <span className={`btn ${this.state.isPlay ? 'pause' : 'play'}`} onClick={this.handlePlay.bind(this)}></span>
+                                    <span className="next btn" onClick={this.handleNextMusic}></span>
+                                </div>
+                                <div>
+                                    <span className={`btn play-${this.props.playType}`} onClick={this.handleChangePlayType.bind(this)}></span>
+                                </div>
                             </div>
                         </div>
                         <img className="music-image" src={this.props.currentMusitItem.cover} alt={this.props.currentMusitItem.title} />
