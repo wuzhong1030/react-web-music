@@ -13,7 +13,7 @@ class App extends Component {
             progress: '-',
             currentMusitItem: MUSIC_LIST[0],
             musicList: MUSIC_LIST,
-			playType: 'cycle'
+            playType: 'cycle'
         }
     }
     componentDidMount() {
@@ -58,43 +58,57 @@ class App extends Component {
         });
     }
     componentWillUnmount() {
-		PubSub.unsubscribe('PLAY_MUSIC')
-		PubSub.unsubscribe('DEL_MUSIC')
-		PubSub.unsubscribe('CHANAGE_PLAY_TYPE')
-		PubSub.unsubscribe('PLAY_NEXT')
-		PubSub.unsubscribe('PLAY_PREV')
-	}
+        PubSub.unsubscribe('PLAY_MUSIC')
+        PubSub.unsubscribe('DEL_MUSIC')
+        PubSub.unsubscribe('CHANAGE_PLAY_TYPE')
+        PubSub.unsubscribe('PLAY_NEXT')
+        PubSub.unsubscribe('PLAY_PREV')
+    }
     progressChangeHandler(progress) {
         console.log('parent', progress)
     }
     playNext(type = 'next') {
-		let index = this.findMusicIndex(this.state.currentMusitItem)
-		if (type === 'next') {		
-			index = (index + 1) % this.state.musicList.length
-		} else {
-			index = (index + this.state.musicList.length - 1) % this.state.musicList.length
-		}
-		let musicItem = this.state.musicList[index]
-		this.setState({
-			currentMusitItem: musicItem
-		});
-		this.playMusic(musicItem)
+        let index = this.findMusicIndex(this.state.currentMusitItem)
+        if (type === 'next') {
+            index = (index + 1) % this.state.musicList.length
+        } else {
+            index = (index + this.state.musicList.length - 1) % this.state.musicList.length
+        }
+        let musicItem = this.state.musicList[index]
+        this.setState({
+            currentMusitItem: musicItem
+        });
+        this.playMusic(musicItem)
     }
     findMusicIndex(music) {
-		let index = this.state.musicList.indexOf(music)
-		return Math.max(0, index);
-	}
+        let index = this.state.musicList.indexOf(music)
+        return Math.max(0, index);
+    }
     playMusic(item) {
-		$("#player").jPlayer("setMedia", {
-			mp3: item.file
-		}).jPlayer('play')
-		this.setState({
-			currentMusitItem: item
-		});
-	}
+        $("#player").jPlayer("setMedia", {
+            mp3: item.file
+        }).jPlayer('play')
+        this.setState({
+            currentMusitItem: item
+        });
+    }
+    playWhenEnd() {
+        if (this.state.playType === 'random') {
+            let index = this.findMusicIndex(this.state.currentMusitItem);
+            let randomIndex = randomRange(0, this.state.musicList.length - 1);
+            while (randomIndex === index) {
+                randomIndex = randomRange(0, this.state.musicList.length - 1);
+            }
+            this.playMusic(this.state.musicList[randomIndex]);
+        } else if (this.state.playType === 'once') {
+            this.playMusic(this.state.currentMusitItem);
+        } else {
+            this.playNext();
+        }
+    }
     render() {
         return (
-            <PlayerPage currentMusitItem={this.state.currentMusitItem} playType={this.state.playType}/>
+            <PlayerPage currentMusitItem={this.state.currentMusitItem} playType={this.state.playType} />
         )
     }
 }
